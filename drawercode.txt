@@ -1,0 +1,56 @@
+function AuthenticatedStack({}) {
+  const navigation = useNavigation();
+  const authCtx = useContext(AuthContext);
+  const drawer = useRef(null);
+  const navigationView = () => (
+    <View style={ styles.navigationContainer}>
+      <View style={{marginTop:25}}>
+      <IconButton icon="menu" color='gray' size={32} onPress={() => drawer.current.closeDrawer()}  />
+      </View>
+      <View>
+
+      </View>
+      <View>
+        {/*<Text>{JSON.stringify({user})}</Text>*/}
+        <IconButton icon="md-information-circle-outline" color='black' size={24} onPress={authCtx.logout} >Account Information</IconButton>
+        <IconButton icon="lock-closed-outline" color='black' size={24} onPress={authCtx.logout} >Passsword</IconButton>
+        <IconButton icon="cart-outline" color='black' size={24} onPress={navigation.navigate("Main")} >Orders</IconButton>
+        <IconButton icon="card-outline" color='black' size={24} onPress={authCtx.logout} >My Cards</IconButton>
+        <IconButton icon="heart-outline" color='black' size={24} onPress={authCtx.logout} >Wishlist</IconButton>
+        <IconButton icon="settings-outline" color='black' size={24} onPress={authCtx.logout} >settings</IconButton>
+      </View>
+      <View style={styles.bottom}>
+      <IconButton icon="exit-outline" color='red' size={24} onPress={authCtx.logout} >Logout</IconButton> 
+      </View>
+    </View>
+  );
+
+  return (
+    <>
+        <DrawerLayoutAndroid  renderNavigationView={navigationView}  ref={drawer}
+      drawerWidth={300}
+      drawerPosition='left'>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: { backgroundColor: Colors.primary500 },
+        headerTintColor: 'white',
+        contentStyle: { backgroundColor: Colors.primary },
+      }}
+    >
+      
+      <Stack.Screen name="Welcome" component={WelcomeScreen} options={{
+        headerLeft: ({tintColor}) => <IconButton icon="menu" color={tintColor} size={24} onPress={() => drawer.current.openDrawer()}  />
+      }} />
+      <Stack.Screen name="Main" component={MainScreen} options={{
+      title:'Home',
+      gestureEnabled:false,
+      headerLeft: ({tintColor}) => <IconButton icon="menu" color={tintColor} size={24} onPress={() => drawer.current.openDrawer()}  />
+      }}/>
+
+    </Stack.Navigator>
+
+   
+    </DrawerLayoutAndroid>
+    </>
+  );
+}
