@@ -59,7 +59,6 @@ The project structure is organized to provide a clear separation of concerns and
 ![productDetail](https://github.com/ajaykumartech/React-Native-cozy-app/blob/main/productDetail.png)
 ![cartScreen](https://github.com/ajaykumartech/React-Native-cozy-app/blob/main/cartScreen.png)
 ![orderConfirmScreen](https://github.com/ajaykumartech/React-Native-cozy-app/blob/main/orderConfirmedScreen.png)
-_Insert screenshots or GIFs of your app in action here._
 
 ## Contributing
 
