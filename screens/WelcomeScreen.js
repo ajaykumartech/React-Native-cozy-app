@@ -5,12 +5,12 @@ import { AuthContext } from '../store/auth-context';
 import IconButton from '../components/ui/IconButton';
 import Card from '../components/ui/Card';
 import data from '../store/data.json';
-
 function WelcomeScreen() {
   const items=data.length;
   const [fetchedData, setFetchedData] = useState('');
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
+
   
   useEffect(()=>{
     axios.get('https://react-native-udemy-3ad52-default-rtdb.firebaseio.com/message.json?auth='+token)

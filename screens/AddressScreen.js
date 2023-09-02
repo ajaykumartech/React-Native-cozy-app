@@ -6,7 +6,6 @@ import { useAddressContext } from "../store/addressContext";
 
 function AddressScreen() {
   
-  
   const navigation =useNavigation();
 
   const {address, updateAddress} = useAddressContext();

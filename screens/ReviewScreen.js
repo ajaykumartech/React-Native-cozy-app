@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { FlatList, Image, Text, View } from 'react-native'
-import { useProductContext } from '../store/ProductContext'
+import { useProduct } from '../store/ProductContext'
 import ReviewCard from '../components/ui/ReviewCard';
 import { Ionicons } from '@expo/vector-icons';
 import Button from "../components/ui/Button";
 import { Feather } from '@expo/vector-icons'; 
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
+import datas from '../store/data.json';
 
 const STAR_SIZE = 20;
 const ProductReview = ({ review }) => {
@@ -46,17 +47,18 @@ const ProductReview = ({ review }) => {
 
 function ReviewScreen() {
 
-   const productData = useProductContext();
+   const productData = useProduct();
    const navigation = useNavigation();
    const renderReviewItem = ({ item }) => <ProductReview review={item} />;
    const addReview =() =>{
     navigation.navigate('addreview');   
    }
+   console.log(productData,"hfugufygdsfbf")
    return(
     <View style={{margin:10}}>
       <View style={{flexDirection:'row',display:'flex',justifyContent:"space-between"}}>
          <View>
-            <Text style={{fontWeight:"500"}}>{productData[0].reviewsCount} Reviews</Text>
+            <Text style={{fontWeight:"500"}}>{datas && datas[0].reviewsCount} Reviews</Text>
              <View style={{display:'flex', flexDirection:'row'}}>
               </View>
          </View>
@@ -65,7 +67,7 @@ function ReviewScreen() {
             </View>
       </View>
        <FlatList
-        data={productData[0].reviews}
+        data={datas[0].reviews}
         renderItem={renderReviewItem}
         keyExtractor={(item, index) => index.toString()}
       />

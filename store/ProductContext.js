@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useState } from "react";
 import { AuthContext } from "./auth-context";
 
 const ProductContext = createContext();
@@ -245,12 +245,33 @@ const initialProducts = [
   // Add more dummy products...
 ];
 
-const cartReducer = (state, action) => {
+// Initial state for products
+const initialState = {
+  products: [],
+  loading: false,
+  error: null,
+};
+
+// const productReducer = (state, action) => {
+//   switch (action.type) {
+//     case "ADD_ITEM":
+//       return [...state, action.item];
+//     case "SET_PRODUCTS":
+//       return { ...state, cartItem: action.cartItem };
+//     default:
+//       return state;
+//   }
+// };
+
+// Create a reducer function to manage state updates
+const productReducer = (state, action) => {
   switch (action.type) {
-    case "ADD_ITEM":
-      return [...state, action.item];
-    case "SET_PRODUCTS":
-      return { ...state, cartItem: action.cartItem };
+    case "FETCH_PRODUCTS_START":
+      return { ...state, loading: true };
+    case "FETCH_PRODUCTS_SUCCESS":
+      return { ...state, loading: false, products: action.payload, error: null };
+    case "FETCH_PRODUCTS_ERROR":
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }
@@ -259,30 +280,54 @@ const cartReducer = (state, action) => {
 export const ProductProvider = ({ children }) => {
   const authCtx = useContext(AuthContext);
   const token = authCtx.token;
-  const [cartItem, dispatch] = useReducer(cartReducer, []);
+  const [cartItem, dispatch] = useReducer(productReducer, initialState);
+  const [fetchedData,setFetchedData] =useState([]);
 
   const addItemToCarts = (item) => {
     dispatch({ type: "ADD_ITEM", item });
   };
 
   useEffect(() => {
-    // Fetch product data from the API and store it in the context
-    axios
-    .get(
-      "https://react-native-udemy-3ad52-default-rtdb.firebaseio.com/items.data?auth=" +
-        token
-    )
-    .then((response) => {
-      console.log(response.data)
-      dispatch({ type: "SET_PRODUCTS", cartItem: response.data });
-      console.log(cartItem, "products");
-    })
-    .catch((error) => {
-      console.log("cannot fetch the data");
-      console.error("Error fetching product data:", error);
+    // Define an async function to fetch the products
+    const fetchProducts = async () => {
+      dispatch({ type: "FETCH_PRODUCTS_START" });
+      try {
+        // Replace the URL with your actual API endpoint
+        const response = await axios.get(
+          "https://react-native-udemy-3ad52-default-rtdb.firebaseio.com/items/data.data?auth=" +
+            token
+        );
+        dispatch({ type: "FETCH_PRODUCTS_SUCCESS", payload: response.data });
+      } catch (error) {
+        dispatch({ type: "FETCH_PRODUCTS_ERROR", payload: error.message });
+      }
+    };
+
+    // Call the fetchProducts function
+    fetchProducts();
+  }, [AuthContext]);
+  
+  // useEffect(() => {
+  //   // Fetch product data from the API and store it in the context
+  //   axios
+  //   .get(
+  //     "https://react-native-udemy-3ad52-default-rtdb.firebaseio.com/items/data.data?auth=" +
+  //       token
+  //   )
+  //   .then((response) => {
+  //     console.log(response.data);
+  //     setFetchedData(response.data);
+  //     dispatch({ type: "SET_PRODUCTS", cartItem: response.data });
+
+
+  //     console.log(cartItem, "products");
+  //   })
+  //   .catch((error) => {
+  //     console.log("cannot fetch the data");
+  //     console.error("Error fetching product data:", error);
      
-    });
-  }, []);
+  //   });
+  // }, []);
 
   return (
     <ProductContext.Provider value={{ cartItem, addItemToCarts }}>

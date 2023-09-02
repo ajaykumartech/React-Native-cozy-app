@@ -1,10 +1,11 @@
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-
+import { useCart } from "../../store/cartContext";
 
 function Card({ id,title, image, originalPrice, discountedPrice,reviews, discount, description,category, itemTitle, images,sizes,colors }) {
     const [isLiked, setIsLiked] = useState(false);
+    const {addItemToCart,  } =useCart();
     const navigation = useNavigation();
     const toggleLike = () => {
         setIsLiked(!isLiked);
