@@ -188,7 +188,7 @@ function ItemDetail({ route }) {
           </Text>
         </Text>
         {/* Reviews starts */}
-        <ReviewCard data={reviews} />
+        <ReviewCard data={reviews} id={id} />
         {/* Reviews Ends */}
         <View
           style={{

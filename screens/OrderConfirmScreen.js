@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react'
-import { Button, Image, StyleSheet, Text, View } from 'react-native'
+import { Button, Image, Pressable, StyleSheet, Text, View } from 'react-native'
 
 function OrderConfirmScreen() {
     const navigation =useNavigation();
@@ -10,7 +10,9 @@ function OrderConfirmScreen() {
     <Text style={{fontSize:28,fontWeight:'700'}}>Order confirmed!</Text>
     <Text style={{width:322,fontSize:15,color:'gray'}}>Your order has been confirmed, we will send you a confirmation email shortly.</Text>
     <View style={styles.buttonContainer}>
+      <Pressable onPress={()=>{navigation.navigate('menu');console.log("first")}}>
       <Button title="Go to Orders" />
+      </Pressable>
       <View style={styles.buttonGap} />
       <Button title="Continue shopping"  />
     </View>

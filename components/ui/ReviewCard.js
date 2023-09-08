@@ -2,9 +2,10 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { Image, Text, TouchableOpacity, View } from 'react-native'
 
-function ReviewCard({data}) {
+function ReviewCard({data,id}) {
   
   const navigation =useNavigation();
+
   return (
    <View style={{marginBottom:10}}>
       <View
@@ -18,7 +19,7 @@ function ReviewCard({data}) {
         <Text style={{fontWeight:'500',fontSize:17}}>Reviews</Text>
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("review",data);
+            navigation.navigate("review",data,id);
           }}
         >
           <Text style={{ marginRight: 20, color: "#8F959E" }}>View All</Text>
@@ -26,14 +27,14 @@ function ReviewCard({data}) {
       </View>
       <View style={{marginTop:15,flexDirection:'row',justifyContent:'space-between',marginBottom:15}}>
         <View style={{width:'70%',flexDirection:'row'}}>
-            {data && <Image style={{width:40,height:40,borderRadius:15}} source={{uri: data[0].reviewerImage}} resize='cover' />}
+            {data && <Image style={{width:40,height:40,borderRadius:15}} source={{uri: data[id].reviewerImage}} resize='cover' />}
             <Text style={{marginLeft:10}}>{data[0].name}</Text>
         </View>
         <View style={{width:'30%',justifyContent:'flex-end'}}>
-           <Text>{data[0].rating} rating</Text>    
+           <Text>{data[id].rating} rating</Text>    
         </View>
       </View>
-      <Text style={{fontSize:15, fontWeight:'400',color: '#8F959E'}}>{data[0].comment}</Text>
+      <Text style={{fontSize:15, fontWeight:'400',color: '#8F959E'}}>{data[id].comment}</Text>
    </View>
   )
 }

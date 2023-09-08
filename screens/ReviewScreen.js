@@ -45,7 +45,7 @@ const ProductReview = ({ review }) => {
    )
 };
 
-function ReviewScreen() {
+function ReviewScreen({id}) {
 
    const productData = useProduct();
    const navigation = useNavigation();
@@ -53,12 +53,14 @@ function ReviewScreen() {
    const addReview =() =>{
     navigation.navigate('addreview');   
    }
-   console.log(productData,"hfugufygdsfbf")
+   console.log(id)
+   const products = productData.cartItem.products[0];
+   console.log(productData.cartItem.products,"hfugufygdsfbf")
    return(
     <View style={{margin:10}}>
       <View style={{flexDirection:'row',display:'flex',justifyContent:"space-between"}}>
          <View>
-            <Text style={{fontWeight:"500"}}>{datas && datas[0].reviewsCount} Reviews</Text>
+            <Text style={{fontWeight:"500"}}>{ products.reviews.length} Reviews</Text>
              <View style={{display:'flex', flexDirection:'row'}}>
               </View>
          </View>
@@ -67,7 +69,7 @@ function ReviewScreen() {
             </View>
       </View>
        <FlatList
-        data={datas[0].reviews}
+        data={products.reviews}
         renderItem={renderReviewItem}
         keyExtractor={(item, index) => index.toString()}
       />

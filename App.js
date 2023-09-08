@@ -418,6 +418,7 @@ function AuthenticatedStack({ navigation }) {
             component={OrderConfirmScreen}
             options={{ headerTitle: "" }}
           />
+         
         </Stack.Navigator>
       </DrawerLayoutAndroid>
     </>
@@ -489,7 +490,7 @@ export default function App() {
       </AuthContextProvider>
     </>
   );
-}
+};
 
 const styles = StyleSheet.create({
   paragraph: { color: "black" },

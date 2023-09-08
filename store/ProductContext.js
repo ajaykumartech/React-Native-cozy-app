@@ -294,7 +294,7 @@ export const ProductProvider = ({ children }) => {
       try {
         // Replace the URL with your actual API endpoint
         const response = await axios.get(
-          "https://react-native-udemy-3ad52-default-rtdb.firebaseio.com/items/data.data?auth=" +
+          "https://react-native-udemy-3ad52-default-rtdb.firebaseio.com/items/data.json?auth=" +
             token
         );
         dispatch({ type: "FETCH_PRODUCTS_SUCCESS", payload: response.data });
