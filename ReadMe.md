@@ -1,4 +1,4 @@
-# E-commerce React Native App
+# E-commerce React-Native-App
 
 This React Native application is a versatile E-commerce platform that seamlessly integrates stack navigation and drawer navigation. It offers a robust set of features and screens to serve as a solid foundation for building your own E-commerce application.
 
